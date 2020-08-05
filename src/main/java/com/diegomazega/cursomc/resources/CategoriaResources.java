@@ -2,6 +2,7 @@ package com.diegomazega.cursomc.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.diegomazega.cursomc.domain.Categoria;
+import com.diegomazega.cursomc.dto.CategoriaDTO;
 import com.diegomazega.cursomc.services.CategoriaService;
 
 @RestController
@@ -26,9 +28,10 @@ public class CategoriaResources {
 	private CategoriaService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> getAll(){
+	public ResponseEntity<List<CategoriaDTO>> getAll(){
 		List<Categoria> catList = service.findAll();
-		return ResponseEntity.ok(catList);
+		List<CategoriaDTO> catDtoList = catList.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok(catDtoList);
 	}
 	
 	@GetMapping(value="/{id}") //Variavel que vem da url. 
