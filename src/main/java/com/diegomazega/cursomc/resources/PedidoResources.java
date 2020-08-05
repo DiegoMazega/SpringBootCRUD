@@ -20,12 +20,12 @@ public class PedidoResources {
 	private PedidoService pedidoService;
 	
 	@GetMapping
-	public ResponseEntity<List<Pedido>> listarTodos(){
+	public ResponseEntity<List<Pedido>> getAll(){
 		return ResponseEntity.ok(pedidoService.findAll());
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> listarPorId(@PathVariable Integer id){
+	public ResponseEntity<Pedido> getById(@PathVariable Integer id){
 		Pedido pedido = pedidoService.find(id);
 		return ResponseEntity.ok(pedido);
 	}

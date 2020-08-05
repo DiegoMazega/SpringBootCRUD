@@ -92,3 +92,7 @@ não é nescessário nenhuma annotation extra para as classes filhas, apenas a "
 usar o "@EmbeddedID" no atributo onde essa classe for instanciada
 
 @JsonIgnore -> ignora o retorno desse atributo pela api
+
+@PostMapping -> Informa que a operação HTTP usada será o Post
+
+@PutMapping -> Informa que a operação HTTP usada será o Put.
