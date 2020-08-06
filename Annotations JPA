@@ -96,3 +96,7 @@ usar o "@EmbeddedID" no atributo onde essa classe for instanciada
 @PostMapping -> Informa que a operação HTTP usada será o Post
 
 @PutMapping -> Informa que a operação HTTP usada será o Put.
+
+@DeleteMapping -> Informa que a operação HTTP usada será o Put.
+
+@RequestParam -> Informa que o valor da variavel será dado a partir de uma variavel na url da requisição.
