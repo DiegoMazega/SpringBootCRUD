@@ -100,3 +100,13 @@ usar o "@EmbeddedID" no atributo onde essa classe for instanciada
 @DeleteMapping -> Informa que a operação HTTP usada será o Put.
 
 @RequestParam -> Informa que o valor da variavel será dado a partir de uma variavel na url da requisição.
+
+@Valid -> Realiza a validação dos parametros passados. especificações devem ser passadas como annotation 
+no atributo da classe.
+
+@NotEmpty -> Verifica se o campo está vazio. Por ter sido depreciada, precisamos importa a bibliotca
+javax.validation nas depencias do projeto, dentro do arquivo pom.xml. Podemos passar uma mensagem
+pro usuario caso o campo nao seja validado
+
+@Lengt -> Informa que o atributo deve ter um tamanho minino X e/ou um maximo de Y.
+Podemos passar uma mensagem pro usuario caso o campo nao seja validado
