@@ -110,3 +110,7 @@ pro usuario caso o campo nao seja validado
 
 @Lengt -> Informa que o atributo deve ter um tamanho minino X e/ou um maximo de Y.
 Podemos passar uma mensagem pro usuario caso o campo nao seja validado
+
+@Email -> Realiza uma verficação de email
+
+@Transactional -> utilizamos quando vamos fazer N transações com o BD. 
