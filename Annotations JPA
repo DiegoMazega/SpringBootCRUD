@@ -113,4 +113,9 @@ Podemos passar uma mensagem pro usuario caso o campo nao seja validado
 
 @Email -> Realiza uma verficação de email
 
-@Transactional -> utilizamos quando vamos fazer N transações com o BD. 
+@Transactional -> utilizamos quando vamos fazer N transações com o BD.
+
+@Query -> Notação para criação de querys JPQL que um determando metodo usará.
+
+@Param -> Informa que o parametro será usado em um determinado lugar, no nosso caso na query, com o nome que deve ser
+passado como parametro para a notação.  
