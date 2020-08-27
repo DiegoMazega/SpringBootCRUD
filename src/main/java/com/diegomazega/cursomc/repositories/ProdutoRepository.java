@@ -22,6 +22,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
 	
 	//A forma escrita do metodo esta usando o padrão Spring Data, sendo assim,
 	//a utilização da notação "@Query" passa a ser opcional.
-	//Uma vez que ela esteja sobre o metodo, o spring irá sobrescrever o JPQL da função
+	//Uma vez que ela esteja sobre o metodo, o spring irá sobrescrever o JPQL do metodo
 	//pelo que estiver dentro do parametro da notação.
 }
