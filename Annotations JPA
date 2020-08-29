@@ -118,4 +118,14 @@ Podemos passar uma mensagem pro usuario caso o campo nao seja validado
 @Query -> Notação para criação de querys JPQL que um determando metodo usará.
 
 @Param -> Informa que o parametro será usado em um determinado lugar, no nosso caso na query, com o nome que deve ser
-passado como parametro para a notação.  
+passado como parametro para a notação.
+
+@JsonTypeInfo -> informa que a classe abstrata será instanciadapor uma de suas filhas, mas usando
+essa anotação podemos dizer exatamente qual filha ira instanciar a classe mãe usando o "@JsonTypeName"
+e passando o nome que será usado em cada classe filha
+
+@JsonTypeName -> define um nome logico para a classe para poder ser usado para serializar ou deserializar uma classe.
+
+@Configuration -> cria uma classe de configuração que será configurada no inicio da execução da aplicação.
+
+@Bean -> Utiliza essa anotação nos metodos que vão receber as informações de configuração da classe.   

@@ -29,18 +29,18 @@ import com.diegomazega.cursomc.services.CategoriaService;
 public class CategoriaResources {
 	
 	@Autowired
-	private CategoriaService service;
+	private CategoriaService categoriaService;
 	
 	@GetMapping
 	public ResponseEntity<List<CategoriaDTO>> getAll(){
-		List<Categoria> catList = service.findAll();
+		List<Categoria> catList = categoriaService.findAll();
 		List<CategoriaDTO> catDtoList = catList.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok(catDtoList);
 	}
 	
 	@GetMapping(value="/{id}") //Variavel que vem da url. 
 	public ResponseEntity<Categoria> GetById(@PathVariable Integer id) {
-		Categoria categoria = service.find(id);
+		Categoria categoria = categoriaService.find(id);
 		return ResponseEntity.ok(categoria);
 	}
 	
@@ -53,30 +53,30 @@ public class CategoriaResources {
 			@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue = "nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue = "ASC") String direction){
-		Page<Categoria> listCategoria = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<Categoria> listCategoria = categoriaService.findPage(page, linesPerPage, orderBy, direction);
 		Page<CategoriaDTO> listCategoriaDTO = listCategoria.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok(listCategoriaDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto){
-		Categoria obj = service.fromDto(objDto);
-		obj = service.insert(obj);
+		Categoria obj = categoriaService.fromDto(objDto);
+		obj = categoriaService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto ,@PathVariable Integer id ){
-		Categoria obj = service.fromDto(objDto);
+		Categoria obj = categoriaService.fromDto(objDto);
 		obj.setId(id);
-		obj  = service.update(obj);
+		obj  = categoriaService.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
-		service.delete(id);
+		categoriaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
