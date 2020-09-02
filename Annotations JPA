@@ -128,4 +128,8 @@ e passando o nome que será usado em cada classe filha
 
 @Configuration -> cria uma classe de configuração que será configurada no inicio da execução da aplicação.
 
-@Bean -> Utiliza essa anotação nos metodos que vão receber as informações de configuração da classe.   
+@Bean -> Utiliza essa anotação nos metodos que vão receber as informações de configuração da classe. 
+
+@Value -> Recupera o valor dado a um atributo da propeties.
+
+@EnableWebSecurity -> Usar essa anotação em classes que iram trabalhar com WebSecurityConfiguration
