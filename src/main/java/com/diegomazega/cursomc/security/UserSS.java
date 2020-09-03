@@ -36,6 +36,10 @@ public class UserSS implements UserDetails {
 		return this.id;
 	}
 	
+	public boolean hasRole(Perfil perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.authorities;
@@ -70,5 +74,4 @@ public class UserSS implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
 }

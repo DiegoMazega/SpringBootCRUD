@@ -33,7 +33,6 @@ public class ClienteResources {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> getAll(){
 		List<Cliente> clienteLista = clienteService.findAll();
