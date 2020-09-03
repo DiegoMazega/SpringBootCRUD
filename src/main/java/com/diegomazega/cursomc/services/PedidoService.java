@@ -5,16 +5,23 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.diegomazega.cursomc.domain.Cliente;
 import com.diegomazega.cursomc.domain.ItemPedido;
 import com.diegomazega.cursomc.domain.PagamentoComBoleto;
 import com.diegomazega.cursomc.domain.Pedido;
 import com.diegomazega.cursomc.domain.enums.EstadoPagamento;
+import com.diegomazega.cursomc.domain.enums.Perfil;
 import com.diegomazega.cursomc.repositories.ItemPedidoRepository;
 import com.diegomazega.cursomc.repositories.PagamentoRepository;
 import com.diegomazega.cursomc.repositories.PedidoRepository;
+import com.diegomazega.cursomc.security.UserSS;
+import com.diegomazega.cursomc.services.exceptions.AuthorizationException;
 import com.diegomazega.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -49,19 +56,23 @@ public class PedidoService {
 	}
 	
 	public List<Pedido> findAll(){
+		UserSS userSS = UserService.authenticated();
+		if(userSS == null || !userSS.hasRole(Perfil.ADMIN)) {
+			throw new AuthorizationException("Acesso Negado");
+		}
 		return pedidoRepository.findAll();
 	}
 	
 	@Transactional
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
-		obj.setDate(new Date());
+		obj.setData(new Date());
 		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if(obj.getPagamento() instanceof PagamentoComBoleto) {
 			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
-			boletoService.preencherPagamentoComBoleto(pagto, obj.getDate());
+			boletoService.preencherPagamentoComBoleto(pagto, obj.getData());
 		}
 		obj = pedidoRepository.save(obj);
 		pagamentoRepository.save(obj.getPagamento());
@@ -75,4 +86,15 @@ public class PedidoService {
 		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
 	}
+	
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		UserSS userSS = UserService.authenticated();
+		if(userSS == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente = clienteService.find(userSS.getId());
+		return pedidoRepository.findByCliente(cliente, pageRequest);
+	}
+	
 }

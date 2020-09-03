@@ -30,7 +30,7 @@ public class Pedido implements Serializable {
 	private Integer id;
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
-	private Date date;
+	private Date data;
 	
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
@@ -50,10 +50,10 @@ public class Pedido implements Serializable {
 	
 	public Pedido() {}
 
-	public Pedido(Integer id, Date date, Cliente cliente, Endereco enderecoDeEntrega) {
+	public Pedido(Integer id, Date data, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
-		this.date = date;
+		this.data = data;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
@@ -74,12 +74,12 @@ public class Pedido implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getData() {
+		return data;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public Pagamento getPagamento() {
@@ -147,7 +147,7 @@ public class Pedido implements Serializable {
 		builder.append("Pedido Número: ");
 		builder.append(getId());
 		builder.append(", Data: ");
-		builder.append(sdf.format(getDate()));
+		builder.append(sdf.format(getData()));
 		builder.append(", Cliente: ");
 		builder.append(getCliente().getNome());
 		builder.append(", Situação do Pagamento: ");
